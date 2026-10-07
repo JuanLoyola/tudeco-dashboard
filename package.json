@@ -1,0 +1,26 @@
+{
+  "name": "tudeco",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Monorepo de Tudeco: API (back) + dashboard Next.js (front)",
+  "workspaces": [
+    "back",
+    "front"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c blue,magenta \"npm run dev -w back\" \"npm run dev -w front\"",
+    "test": "npm run test -w back && npm run test -w front",
+    "typecheck": "npm run typecheck -w back && npm run typecheck -w front",
+    "build": "npm run build -w back && npm run build -w front",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "db:migrate": "npm run db:migrate -w back",
+    "db:seed": "npm run db:seed -w back",
+    "db:studio": "npm run db:studio -w back"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5",
+    "prettier": "^3.9.9",
+    "prettier-plugin-tailwindcss": "^0.8.1"
+  }
+}

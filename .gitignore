@@ -1,0 +1,21 @@
+node_modules/
+coverage/
+*.log
+*.tsbuildinfo
+
+# secretos: nunca se commitean (los .env.example sí)
+.env
+.env.local
+.env.*.local
+
+# builds / cachés
+dist/
+back/dist/
+front/.next/
+front/.swc/
+
+# sistema / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

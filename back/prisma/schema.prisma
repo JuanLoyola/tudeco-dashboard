@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  slug      String    @unique
+  products  Product[]
+  createdAt DateTime  @default(now())
+}
+
+model Product {
+  id          Int       @id @default(autoincrement())
+  sku         String    @unique
+  name        String
+  description String?
+  price       Decimal   @db.Decimal(10, 2)
+  cost        Decimal?  @db.Decimal(10, 2)
+  stock       Int       @default(0)
+  minStock    Int       @default(0)
+  isActive    Boolean   @default(true)
+  categoryId  Int?
+  category    Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  movements   StockMovement[]
+
+  @@index([categoryId])
+  @@index([isActive])
+}
+
+/// Libro de movimiento de stock: cada fila es un hecho inmutable.
+model StockMovement {
+  id        Int          @id @default(autoincrement())
+  type      MovementType
+  quantity  Int
+  reason    String?
+  productId Int
+  product   Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime     @default(now())
+
+  @@index([productId, createdAt])
+  @@index([createdAt])
+}
+
+enum MovementType {
+  ENTRY
+  EXIT
+  ADJUSTMENT
+}
