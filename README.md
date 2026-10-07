@@ -108,3 +108,5 @@ rápida de probarlo es el **Swagger**, sin tocar código.
 - **CORS** sólo acepta los orígenes de `CORS_ORIGIN` en `back/.env`.
 - **Prettier** vive en la raíz (`prettier.config.mjs`) y cubre `back/` y `front/`.
 - **`.env` nunca se commitea**: hay `.env.example` con placeholder en cada workspace.
+- **UI Glass** — todo el sistema de diseño (decisiones, superficies, reglas) está
+  documentado en [`docs/ui-glass.md`](docs/ui-glass.md).
